@@ -1,6 +1,5 @@
 sudo: required
-services:
-- docker
+services: - docker
 env:
   DOCKER_COMPOSE_VERSION: 1.11.2
 before_install:
@@ -18,6 +17,8 @@ script:
 - docker exec gobgpdocker_rt1_1 gobgp neighbor
 - sleep 30 
 - docker exec gobgpdocker_rt1_1 gobgp global rib -a evpn
+- sleep 30 
+- docker exec gobgpdocker_rt1_1 /opt/fullroute.sh
 notifications:
   slack:
     secure: c5ItoEpw9CrFJrg1YPjaxZMxSdtw7RLoVySyHlxByUQaduDVSOgHDUBYRBlAVDo72In6nO5ZBuoKVyORPHnoEvXevzGrZl4XX6ggCauLZMpXYy8Rned44rpVJE9AsUI6u5FTy5zeS7i8lFhz/B1G4o4tqDOuKiFdBIIKhGa5l+CWvLDeuzetAA005W5biVQ9qFeDrcyIrCxx7vRYXbW6GsMKGUpqhb+8u6b7okx98APmwAe6VdlppaO9INZmUeFTItJitxw2w1uuNXqCAuDf3Xq8r5D6DC5zGOMkZZnDqvDd0hykIHoOt3FxlPvWD+280SXJwnv82i/7nlaB9AINtsl7NPhMWSdviXip7lAI8xp/yKV6gCwKRjbcvoGYxqI2IEua4Kbkxo5h4GsYORkuACl8dzHpQbNzR6juQmoDX+x16XzTVmSnkLObq6++ZuxtmQQ9lEd1sqXozEqd+IJ9La/P36Gnx+mja9bs43jg/3y8kj4Zd+Dyer4deIsn/2CmbMJofRzCZg3hGaFql0EBU9iJxPMKeysEIOPqmIga4RZJUELxXGKsmRs1I55m0z6cFIYi3ojzRBd/9rXt0nxY05Q0VkdTac9hGTh4DzOYFvdDmp7udDu7TryTakBeG00gfyz5l8+IQ4CFr2LEFHINRR6fQ1QD3YHpRGkdV6rlKSA=

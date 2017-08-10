@@ -11,7 +11,8 @@ RUN /opt/build.sh
 ADD files/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Add script to run
-ADD scripts/run.sh   /opt/run.sh
+ADD scripts/fullroute.sh /opt/fullroute.sh
+ADD scripts/run.sh       /opt/run.sh
 
 # Start
 ENTRYPOINT ["/opt/run.sh"]
