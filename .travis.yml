@@ -14,7 +14,9 @@ install:
 script:
 - docker-compose up -d
 - docker ps -a
+- sleep 30 
 - docker exec gobgpdocker_rt1_1 gobgp neighbor
+- sleep 30 
 - docker exec gobgpdocker_rt1_1 gobgp global rib -a evpn
 notifications:
   slack:

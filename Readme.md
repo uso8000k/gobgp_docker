@@ -1,4 +1,5 @@
-
+[![Build Status](https://travis-ci.org/uso8000k/gobgp_docker.svg?branch=master)](https://travis-ci.org/uso8000k/gobgp_docker)
+:
 ## Usage
 
 ```
