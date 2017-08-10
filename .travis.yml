@@ -1,0 +1,21 @@
+sudo: required
+services:
+- docker
+env:
+  DOCKER_COMPOSE_VERSION: 1.11.2
+before_install:
+- sudo rm /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
+  -s`-`uname -m` > docker-compose
+- chmod +x docker-compose
+- sudo mv docker-compose /usr/local/bin
+install:
+- docker-compose build
+script:
+- docker-compose up -d
+- docker ps -a
+- docker exec gobgpdocker_rt1_1 gobgp neighbor 
+- docker exec gobgpdocker_rt1_1 gobgp global rib -a evpn
+notifications:
+  slack:
+    secure: pVnLYi9218fkHmaSG2iv68jFyv9XpZSfJ0oFBLZFSYVBeHXiiFo4diA/VdRzJnad7YNCgg+Ql7NZxAgUI21tenIWU2/Vlske/mOUi7uBbaqQ2iouzQi04mERHBPv9QM/k6yJbWI0U1Yn9ducdddmvGjO4BdH+/O6MHs+mVjlPXW5NM4Yg+0G7uUW4wFdDjJnAwTPPW9ax+Cu3Fv0Ox882J+DLBpDubdmpaGOrTBGEdS5254nWYdFL6ruhSvbIWWGLLnh+ztkA/D2lJ9quNgHwTUkizG+C+CydggdQkajrBS4LMsz+BCgRe7vDiVHwXo3F5+RETBVTIBpQiYwgj/HNwfCUSmddr+1/e+bs0GOT6gcnDy/omPiHUlH3wxPLTwWtj4xVvjQ/MAN3nVagf0mTM69AAq52nPYBXNvUWdeWSp9Zd2/lUlmuS3/T9pQFTuVDjXLIMfj09Pjpv3C1Y/xGr/8Ypw5vMw58iRVGAiqxMYvPj0z7pVosIV/L8yNcQfAahq9C2JXn/H2F1rioxEnMHSLtxjlaAvZDGXzAb76sfU4zoA3t+8YU2pdz4fSC9o9YlPPctRVyG7jewsVWIQcKTy6IyVUw+y4TmBqNEd6F02tzfcufn7d6z1cnQ8GQtZ6LcVOXApwIFBOQkoOkWNtoKpGMIiIEDLFprSS7F4OH+w=

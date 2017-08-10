@@ -1,0 +1,66 @@
+version: '2'
+
+services:
+  rt1:
+    build: "./gobgp"
+    networks:
+      ext_net:
+        ipv4_address: 172.16.240.11
+        ipv6_address: 2001:DB8:16:240::11
+      int_net1:
+        ipv4_address: 172.16.241.11
+        ipv6_address: 2001:DB8:16:241::11
+    ports:
+        - 179:179
+    volumes:
+      - "./conf/rt1:/opt/gobgp"
+    privileged: true
+  rt2:
+    build: "./gobgp"
+    networks:
+      ext_net:
+        ipv4_address: 172.16.240.12
+        ipv6_address: 2001:DB8:16:240::12
+      int_net2:
+        ipv4_address: 172.16.242.12
+        ipv6_address: 2001:DB8:16:242::12
+    volumes:
+      - "./conf/rt2:/opt/gobgp"
+    privileged: true
+
+networks:
+  ext_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+      - subnet:  172.16.240.0/24
+        gateway: 172.16.240.1
+      - subnet:  2001:DB8:16:240::/64
+        gateway: 2001:DB8:16:240::1
+
+  int_net1:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+      - subnet:  172.16.241.0/24
+        gateway: 172.16.241.1
+      - subnet:  2001:DB8:16:241::/64
+        gateway: 2001:DB8:16:241::1
+
+  int_net2:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+      - subnet:  172.16.242.0/24
+        gateway: 172.16.242.1
+      - subnet:  2001:DB8:16:242::/64
+        gateway: 2001:DB8:16:242::1
